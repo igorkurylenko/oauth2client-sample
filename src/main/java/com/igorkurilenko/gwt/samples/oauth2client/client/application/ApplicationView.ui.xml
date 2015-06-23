@@ -6,34 +6,7 @@
              type="com.igorkurilenko.gwt.samples.oauth2client.client.resources.AppResources"/>
 
     <g:HTMLPanel>
-
-        <header>
-            <div class="{res.style.container}">
-                <h1>GWTP Basic Example</h1>
-                <ul>
-                    <li>
-                        <a href="https://github.com/ArcBees/GWTP">[ Project Home ]</a>
-                    </li>
-                    <li>
-                        <a href="https://github.com/ArcBees/GWTP-Samples/tree/master/gwtp-samples/gwtp-sample-basic">
-                            [
-                            Source ]
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </header>
-
-        <div class="{res.style.container} {res.style.box}">
-            <p>
-                <strong>Please enter your name:</strong>
-            </p>
-            <g:TextBox ui:field="nameField"/>
-
-            <g:Button ui:field="sendButton">Submit</g:Button>
-            <g:HTML ui:field="error" styleName="{res.style.labelError}"/>
-        </div>
-
+        hello world
     </g:HTMLPanel>
 </ui:UiBinder>
 

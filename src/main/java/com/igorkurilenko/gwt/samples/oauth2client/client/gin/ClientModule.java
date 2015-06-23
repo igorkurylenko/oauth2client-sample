@@ -9,8 +9,6 @@ import com.igorkurilenko.gwt.samples.oauth2client.client.place.NameTokens;
 import com.igorkurilenko.gwt.samples.oauth2client.client.resources.ResourceLoader;
 
 public class ClientModule extends AbstractPresenterModule {
-    private static final String ANALYTICS_ACCOUNT = "UA-8319339-6";
-
     @Override
     protected void configure() {
         install(new DefaultModule.Builder()
@@ -18,10 +16,7 @@ public class ClientModule extends AbstractPresenterModule {
                 .errorPlace(NameTokens.home)
                 .unauthorizedPlace(NameTokens.home)
                 .build());
-        install(new RpcDispatchAsyncModule());
         install(new ApplicationModule());
-
-        bindConstant().annotatedWith(GaAccount.class).to(ANALYTICS_ACCOUNT);
 
         bind(ResourceLoader.class).asEagerSingleton();
     }
