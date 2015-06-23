@@ -14,12 +14,20 @@
  * the License.
  */
 
-package com.igorkurilenko.gwt.samples.oauth2client.client.application;
+package com.igorkurilenko.gwt.samples.oauth2client.client.application.catchonserver;
 
-import com.gwtplatform.mvp.client.UiHandlers;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.user.client.ui.Widget;
+import com.google.inject.Inject;
+import com.gwtplatform.mvp.client.ViewImpl;
 
-public interface ApplicationUiHandlers extends UiHandlers {
-    void goToCatchOnServer();
+public class CatchOnServerPageView extends ViewImpl implements CatchOnServerPagePresenter.MyView {
+    interface Binder extends UiBinder<Widget, CatchOnServerPageView> {
+    }
 
-    void goToStoreOnClient();
+    @Inject
+    CatchOnServerPageView(
+            Binder uiBinder) {
+        initWidget(uiBinder.createAndBindUi(this));
+    }
 }

@@ -1,12 +1,14 @@
-<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
-<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
-             xmlns:g="urn:import:com.google.gwt.user.client.ui">
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
 
-    <ui:with field="res"
-             type="com.igorkurilenko.gwt.samples.oauth2client.client.resources.AppResources"/>
+    <ui:import field="com.igorkurilenko.gwt.samples.oauth2client.client.place.NameTokens.STORE_ON_CLIENT"/>
+    <ui:import field="com.igorkurilenko.gwt.samples.oauth2client.client.place.NameTokens.CATCH_ON_SERVER"/>
 
     <g:HTMLPanel>
-        hello world
+        <g:HTMLPanel>
+            <g:Hyperlink targetHistoryToken="{STORE_ON_CLIENT}" text="Showcase 1"/>
+            <g:Hyperlink targetHistoryToken="{CATCH_ON_SERVER}" text="Showcase 2"/>
+        </g:HTMLPanel>
+        <g:SimplePanel ui:field="mainPanel"/>
     </g:HTMLPanel>
 </ui:UiBinder>
-
