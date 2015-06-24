@@ -2,16 +2,28 @@
              xmlns:g='urn:import:com.google.gwt.user.client.ui'>
 
     <ui:style>
-        .description{
+        .showcase-description {
             width: 70px;
             text-align: right;
             margin-left: 76px;
         }
+
+        .container {
+            width: 1024px;
+            padding: 56px;
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+        }
+
     </ui:style>
 
     <g:HTMLPanel>
-        <div class="{style.description}">
+        <div class="{style.showcase-description}">
             Store retrieved token in the browser storage showcase
+        </div>
+        <div class="{style.container}">
+
         </div>
     </g:HTMLPanel>
 </ui:UiBinder>
