@@ -9,12 +9,7 @@ public interface AppResources extends ClientBundle {
     }
 
     interface Style extends CssResource {
-        @ClassName("label_error")
-        String labelError();
 
-        String container();
-
-        String box();
     }
 
     @Source("css/normalize.gss")

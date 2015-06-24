@@ -1,13 +1,67 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'>
 
-    <ui:import field="com.igorkurilenko.gwt.samples.oauth2client.client.place.NameTokens.STORE_ON_CLIENT"/>
-    <ui:import field="com.igorkurilenko.gwt.samples.oauth2client.client.place.NameTokens.CATCH_ON_SERVER"/>
+    <ui:style>
+        .nav {
+            width: 1024px;
+            display: inline-block;
+            padding-left: 56px;
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            height: 56px;
+        }
+
+        .nav-link {
+            position: relative;
+            display: inline-block;
+            vertical-align: bottom;
+            height: 56px;
+            width: 100px;
+        }
+
+        .nav-link a {
+            position: absolute;
+            bottom: 4px;
+        }
+
+        .no-margin-top {
+            margin-top: 0;
+        }
+
+        .logo {
+            margin: 0;
+            padding: 0;
+            vertical-align: bottom;
+            font-weight: bold;
+            font-size: 30px;
+            position: absolute;
+            left: 422px;
+            top: 28px;
+        }
+
+        .logo a {
+            text-decoration: none;
+            color: #100E10;
+        }
+    </ui:style>
+
+    <ui:import
+            field="com.igorkurilenko.gwt.samples.oauth2client.client.place.NameTokens.STORE_ON_CLIENT"/>
+    <ui:import
+            field="com.igorkurilenko.gwt.samples.oauth2client.client.place.NameTokens.CATCH_ON_SERVER"/>
 
     <g:HTMLPanel>
         <g:HTMLPanel>
-            <g:Hyperlink targetHistoryToken="{STORE_ON_CLIENT}" text="Showcase 1"/>
-            <g:Hyperlink targetHistoryToken="{CATCH_ON_SERVER}" text="Showcase 2"/>
+            <div class="{style.nav}">
+                <g:Hyperlink targetHistoryToken="{STORE_ON_CLIENT}"
+                             text="Store On Client" styleName="{style.nav-link}"/>
+                <g:Hyperlink targetHistoryToken="{CATCH_ON_SERVER}"
+                             text="Catch On Server" styleName="{style.nav-link}"/>
+                <g:Hyperlink targetHistoryToken="{STORE_ON_CLIENT}"
+                             text="oauth2client" styleName="{style.logo}"/>
+            </div>
+            <hr class="{style.no-margin-top}"/>
         </g:HTMLPanel>
         <g:SimplePanel ui:field="mainPanel"/>
     </g:HTMLPanel>
