@@ -14,6 +14,4 @@ $ cd oauth2client-sample
 $ mvn gwt:run
 ```
 
-Open in browser:
-
-http://localhost:8888
+Open in browser: [localhost:8888](http://localhost:8888)
