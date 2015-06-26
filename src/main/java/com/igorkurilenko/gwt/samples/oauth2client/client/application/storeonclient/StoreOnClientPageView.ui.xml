@@ -3,27 +3,96 @@
 
     <ui:style>
         .showcase-description {
-            width: 70px;
+            width: 90px;
             text-align: right;
-            margin-left: 76px;
+            margin-left: 56px;
         }
 
         .container {
+            position: relative;
             width: 1024px;
             padding: 56px;
-            box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            -webkit-box-sizing: border-box;
         }
 
+        .diagram {
+            display: block;
+            width: 391px;
+            margin: 0 auto;
+        }
+
+        .whitespace {
+            height: 28px;
+            width: 28px;
+        }
+
+        .request-button {
+            background-color: #B41730;
+            height: 56px;
+            border: 0;
+            font-weight: bold;
+            color: #fafafa;
+            border-radius: 3px;
+        }
+
+        .request-button:active {
+            background-color: #B42F41;
+        }
+
+        .request-button:active,
+        .request-button:focus {
+            outline: #ECEAAA solid;
+        }
+
+        .token-section {
+            display: inline-block;
+            margin-left: 28px;
+            height: 56px;
+            vertical-align: middle;
+        }
+
+        .token-section div {
+            height: 28px;
+        }
+
+        .token, .expires-in {
+            font-weight: bold;
+            color: #B41730;
+        }
     </ui:style>
 
     <g:HTMLPanel>
         <div class="{style.showcase-description}">
-            Store retrieved token in the browser storage showcase
+            OAuth2Client automatically stores a retrieved
+            token in a cookie or in the browser storage.
         </div>
         <div class="{style.container}">
+            <img class="{style.diagram}" src="storeonclientflow.png"/>
+            <div class="{style.whitespace}"/>
 
+            <h3>How to</h3>
+            <pre><code ui:field="howToCodeElement"/></pre>
+
+            <div class="{style.whitespace}"/>
+
+            <g:Button ui:field="requestButton"
+                      text="Request Access Token"
+                      styleName="{style.request-button}"/>
+
+            <div class="{style.token-section}">
+                <div>
+                    <span>Token:</span>
+                    <span ui:field="tokenSpan" class="{style.token}"/>
+                </div>
+                <div>
+                    <span>Expires in:</span>
+                    <span ui:field="expiresInSpan" class="{style.expires-in}"/>
+                </div>
+            </div>
+
+            <div class="{style.whitespace}"/>
+
+            <h3>callback.html</h3>
+            <pre><code ui:field="callbackCodeElement"/></pre>
         </div>
     </g:HTMLPanel>
 </ui:UiBinder>

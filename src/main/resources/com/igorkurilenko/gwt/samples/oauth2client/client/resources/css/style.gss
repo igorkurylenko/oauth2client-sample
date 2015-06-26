@@ -19,3 +19,27 @@ hr {
 a {
     color: #2C96B8;
 }
+
+pre {
+    word-wrap: normal;
+    padding: 16px;
+    overflow: auto;
+    line-height: 1.45;
+    background-color: #f7f7f7;
+    margin: 0;
+}
+
+pre code {
+    display: inline;
+    max-width: initial;
+    padding: 0;
+    margin: 0;
+    overflow: initial;
+    line-height: inherit;
+    word-wrap: normal;
+    background-color: transparent;
+    border: 0;
+    word-break: normal;
+    white-space: pre;
+    background: transparent;
+}

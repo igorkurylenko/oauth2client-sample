@@ -10,7 +10,7 @@
 
     <g:HTMLPanel>
         <div class="{style.description}">
-            Send retrieved token to the server showcase
+            Send retrieved token to the server
         </div>
     </g:HTMLPanel>
 </ui:UiBinder>

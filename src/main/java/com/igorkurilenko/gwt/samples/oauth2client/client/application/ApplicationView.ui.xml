@@ -6,9 +6,6 @@
             width: 1024px;
             display: inline-block;
             padding-left: 56px;
-            box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            -webkit-box-sizing: border-box;
             height: 56px;
         }
 
@@ -51,18 +48,20 @@
     <ui:import
             field="com.igorkurilenko.gwt.samples.oauth2client.client.place.NameTokens.CATCH_ON_SERVER"/>
 
-    <g:HTMLPanel>
+    <g:ScrollPanel>
         <g:HTMLPanel>
-            <div class="{style.nav}">
-                <g:Hyperlink targetHistoryToken="{STORE_ON_CLIENT}"
-                             text="Store On Client" styleName="{style.nav-link}"/>
-                <g:Hyperlink targetHistoryToken="{CATCH_ON_SERVER}"
-                             text="Catch On Server" styleName="{style.nav-link}"/>
-                <g:Hyperlink targetHistoryToken="{STORE_ON_CLIENT}"
-                             text="oauth2client" styleName="{style.logo}"/>
-            </div>
-            <hr class="{style.no-margin-top}"/>
+            <g:HTMLPanel>
+                <div class="{style.nav}">
+                    <g:Hyperlink targetHistoryToken="{STORE_ON_CLIENT}"
+                                 text="Store On Client" styleName="{style.nav-link}"/>
+                    <g:Hyperlink targetHistoryToken="{CATCH_ON_SERVER}"
+                                 text="Catch On Server" styleName="{style.nav-link}"/>
+                    <g:Hyperlink targetHistoryToken="{STORE_ON_CLIENT}"
+                                 text="OAuth2Client" styleName="{style.logo}"/>
+                </div>
+                <hr class="{style.no-margin-top}"/>
+            </g:HTMLPanel>
+            <g:SimplePanel ui:field="mainPanel"/>
         </g:HTMLPanel>
-        <g:SimplePanel ui:field="mainPanel"/>
-    </g:HTMLPanel>
+    </g:ScrollPanel>
 </ui:UiBinder>

@@ -6,6 +6,7 @@
     <!-- Other module inherits                                      -->
     <inherits name='com.gwtplatform.dispatch.Dispatch'/>
     <inherits name='com.gwtplatform.mvp.MvpWithEntryPoint'/>
+    <inherits name='io.itdraft.gwt.oauth2.OAuth2Client'/>
 
     <!-- Specify the paths for translatable code                    -->
     <source path='client'/>

@@ -1,0 +1,15 @@
+@startuml
+skinparam backgroundColor #ECEBEC
+
+actor User as resowner
+participant "OAuth2Client" as client
+participant "callback.html" as callback
+participant "Google Servers" as provider
+
+client->provider: Request Token
+resowner->provider: User login & consent
+provider-->callback: Token response
+callback-->client: "location.hash"
+client->client: Extract token & store
+client->provider: Use token to call\n Google API
+@enduml
