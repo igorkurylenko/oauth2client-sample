@@ -102,7 +102,7 @@ public class StoreOnClientPagePresenter
     public void refreshAccessToken() {
         String clientId =
                 "392293350498-7inmq35i0n9ofuckbm1ebd8fg18c270c.apps.googleusercontent.com";
-
+        // Once client is created you can use get an instance by clientId
         ImplicitGrantOAuth2Client.get(clientId).refreshAccessToken(new AccessTokenCallback() {
             @Override
             protected void doOnFailure(FailureReason reason) {

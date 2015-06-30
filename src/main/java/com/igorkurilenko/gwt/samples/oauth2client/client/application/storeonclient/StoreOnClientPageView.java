@@ -110,7 +110,7 @@ public class StoreOnClientPageView extends ViewWithUiHandlers<StoreOnClientPageU
             "</html>";
     private static final String HOW_TO_REFRESH = "String clientId =\n" +
             "        \"392293350498-7inmq35i0n9ofuckbm1ebd8fg18c270c.apps.googleusercontent.com\";\n" +
-            "\n" +
+            "// once the client is created you can get an instance by the clientId\n" +
             "ImplicitGrantOAuth2Client.get(clientId).refreshAccessToken(new AccessTokenCallback() {\n" +
             "    @Override\n" +
             "    protected void doOnFailure(FailureReason reason) {\n" +

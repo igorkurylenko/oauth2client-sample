@@ -34,7 +34,7 @@
             font-size: 30px;
             position: absolute;
             left: 422px;
-            top: 28px;
+            top: 29px;
         }
 
         .logo a {
