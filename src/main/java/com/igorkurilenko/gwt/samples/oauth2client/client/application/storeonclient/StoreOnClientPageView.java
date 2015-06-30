@@ -16,9 +16,9 @@ import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 public class StoreOnClientPageView extends ViewWithUiHandlers<StoreOnClientPageUiHandlers>
         implements StoreOnClientPagePresenter.MyView {
     @UiField
-    Button retrieveAccessTokenButton;
+    Button requestAccessTokenButton;
     @UiField
-    Element howToRetrieveCodeElement;
+    Element howToRequestCodeElement;
     @UiField
     Element callbackCodeElement;
     @UiField
@@ -44,7 +44,7 @@ public class StoreOnClientPageView extends ViewWithUiHandlers<StoreOnClientPageU
     }
 
     private void initCodeElements() {
-        howToRetrieveCodeElement.setInnerText(HOW_TO_RETRIEVE_CODE);
+        howToRequestCodeElement.setInnerText(HOW_TO_REQUEST_CODE);
         howToRefreshCodeElement.setInnerText(HOW_TO_REFRESH);
         callbackCodeElement.setInnerText(CALLBACK_CODE);
     }
@@ -66,9 +66,9 @@ public class StoreOnClientPageView extends ViewWithUiHandlers<StoreOnClientPageU
     }
 
 
-    @UiHandler("retrieveAccessTokenButton")
-    public void handleRetrieveClick(ClickEvent event) {
-        getUiHandlers().retrieveAccessToken();
+    @UiHandler("requestAccessTokenButton")
+    public void handleRequestClick(ClickEvent event) {
+        getUiHandlers().requestAccessToken();
     }
 
     @UiHandler("refreshAccessTokenButton")
@@ -76,7 +76,7 @@ public class StoreOnClientPageView extends ViewWithUiHandlers<StoreOnClientPageU
         getUiHandlers().refreshAccessToken();
     }
 
-    private static final String HOW_TO_RETRIEVE_CODE = "// e.g.\n" +
+    private static final String HOW_TO_REQUEST_CODE = "// e.g.\n" +
             "String clientId =\n" +
             "        \"392293350498-7inmq35i0n9ofuckbm1ebd8fg18c270c.apps.googleusercontent.com\";\n" +
             "String redirectUri = \"http://localhost:8888/callback.html\";\n" +
@@ -86,7 +86,7 @@ public class StoreOnClientPageView extends ViewWithUiHandlers<StoreOnClientPageU
             "\n" +
             "// send request\n" +
             "ImplicitGrantOAuth2Client.create(clientId, redirectUri, authEndpoint, scopes)\n" +
-            "        .retrieveAccessToken(new AccessTokenCallback() {\n" +
+            "        .requestAccessToken(new AccessTokenCallback() {\n" +
             "            @Override\n" +
             "            protected void doOnFailure(FailureReason reason) {\n" +
             "                ...\n" +

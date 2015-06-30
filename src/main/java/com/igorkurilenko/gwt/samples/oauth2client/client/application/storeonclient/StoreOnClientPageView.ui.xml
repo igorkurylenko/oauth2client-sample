@@ -3,9 +3,9 @@
 
     <ui:style>
         .showcase-description {
-            width: 90px;
+            width: 85px;
             text-align: right;
-            margin-left: 56px;
+            margin-left: 61px;
         }
 
         .container {
@@ -65,19 +65,19 @@
 
     <g:HTMLPanel>
         <div class="{style.showcase-description}">
-            OAuth2Client automatically stores a retrieved
-            token in a cookie or in the browser storage.
+            OAuth2Client automatically stores the access
+            token in a cookie or in the browser storage
         </div>
         <div class="{style.container}">
             <img class="{style.diagram}" src="storeonclientflow.png"/>
             <div class="{style.whitespace}"/>
 
-            <h3>How to retrieve the access token:</h3>
-            <pre><code ui:field="howToRetrieveCodeElement"/></pre>
+            <h3>How to request the access token:</h3>
+            <pre><code ui:field="howToRequestCodeElement"/></pre>
 
             <div class="{style.whitespace}"/>
 
-            <g:Button ui:field="retrieveAccessTokenButton"
+            <g:Button ui:field="requestAccessTokenButton"
                       text="Request Access Token"
                       styleName="{style.request-button}"/>
 

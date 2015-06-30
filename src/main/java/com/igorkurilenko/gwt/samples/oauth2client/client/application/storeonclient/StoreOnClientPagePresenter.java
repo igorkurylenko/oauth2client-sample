@@ -16,6 +16,7 @@ import com.igorkurilenko.gwt.samples.oauth2client.client.place.NameTokens;
 import io.itdraft.gwt.oauth2.AccessToken;
 import io.itdraft.gwt.oauth2.AccessTokenCallback;
 import io.itdraft.gwt.oauth2.FailureReason;
+import io.itdraft.gwt.oauth2.OAuth2Client;
 import io.itdraft.gwt.oauth2.implicit.ImplicitGrantOAuth2Client;
 
 import java.util.HashSet;
@@ -24,8 +25,9 @@ import java.util.Set;
 public class StoreOnClientPagePresenter
         extends Presenter<StoreOnClientPagePresenter.MyView, StoreOnClientPagePresenter.MyProxy>
         implements StoreOnClientPageUiHandlers {
-    public static final String EXPIRED = "expired";
-    private AccessToken token;
+    private static final String EXPIRED = "expired";
+    private static final String CLIENT_ID =
+            "392293350498-7inmq35i0n9ofuckbm1ebd8fg18c270c.apps.googleusercontent.com";
 
     interface MyView extends View, HasUiHandlers<StoreOnClientPageUiHandlers> {
         void setTokenText(String token);
@@ -52,8 +54,17 @@ public class StoreOnClientPagePresenter
 
         Scheduler.get().scheduleFixedPeriod(new Scheduler.RepeatingCommand() {
             public boolean execute() {
-                if (token != null) {
-                    updateExpiresInText();
+                OAuth2Client oAuth2Client = ImplicitGrantOAuth2Client.get(CLIENT_ID);
+
+                if (oAuth2Client != null) {
+                    oAuth2Client.requestAccessToken(new AccessTokenCallback() {
+                        protected void doOnFailure(FailureReason reason) {
+                        }
+
+                        protected void doOnSuccess(AccessToken token) {
+                            renderToken(token);
+                        }
+                    });
                 }
 
                 return true;
@@ -61,19 +72,18 @@ public class StoreOnClientPagePresenter
         }, 1000);
     }
 
-    private void updateExpiresInText() {
+    private void renderToken(AccessToken token) {
+        getView().setTokenText(token.getToken());
+        updateExpiresInText(token);
+    }
+
+    private void updateExpiresInText(AccessToken token) {
         long timeLeftInSeconds = token.getTimeLeftInSeconds();
         getView().setExpiresInText(timeLeftInSeconds == 0 ?
                 EXPIRED : timeLeftInSeconds + "");
     }
 
-    private void setToken(AccessToken token) {
-        this.token = token;
-        getView().setTokenText(token.getToken());
-        updateExpiresInText();
-    }
-
-    public void retrieveAccessToken() {
+    public void requestAccessToken() {
         // e.g.
         String clientId =
                 "392293350498-7inmq35i0n9ofuckbm1ebd8fg18c270c.apps.googleusercontent.com";
@@ -84,7 +94,7 @@ public class StoreOnClientPagePresenter
 
         // send request
         ImplicitGrantOAuth2Client.create(clientId, redirectUri, authEndpoint, scopes)
-                .retrieveAccessToken(new AccessTokenCallback() {
+                .requestAccessToken(new AccessTokenCallback() {
                     @Override
                     protected void doOnFailure(FailureReason reason) {
                         Window.alert(reason.getClass().getName());
@@ -92,7 +102,7 @@ public class StoreOnClientPagePresenter
 
                     @Override
                     protected void doOnSuccess(AccessToken token) {
-                        setToken(token);
+                        renderToken(token);
                         getView().setRefreshButtonVisible(true);
                     }
                 });
@@ -111,7 +121,7 @@ public class StoreOnClientPagePresenter
 
             @Override
             protected void doOnSuccess(AccessToken token) {
-                setToken(token);
+                renderToken(token);
             }
         });
     }
