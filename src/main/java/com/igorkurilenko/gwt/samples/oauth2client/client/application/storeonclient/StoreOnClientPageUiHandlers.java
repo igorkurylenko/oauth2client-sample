@@ -4,6 +4,8 @@ import com.gwtplatform.mvp.client.UiHandlers;
 
 public interface StoreOnClientPageUiHandlers extends UiHandlers {
 
-    void requestAccessToken();
+    void retrieveAccessToken();
+
+    void refreshAccessToken();
 
 }

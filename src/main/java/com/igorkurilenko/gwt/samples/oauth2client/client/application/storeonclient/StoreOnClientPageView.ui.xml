@@ -22,7 +22,6 @@
 
         .whitespace {
             height: 28px;
-            width: 28px;
         }
 
         .request-button {
@@ -58,6 +57,10 @@
             font-weight: bold;
             color: #B41730;
         }
+
+        .double-whitespace {
+            height: 56px;
+        }
     </ui:style>
 
     <g:HTMLPanel>
@@ -70,11 +73,11 @@
             <div class="{style.whitespace}"/>
 
             <h3>How to</h3>
-            <pre><code ui:field="howToCodeElement"/></pre>
+            <pre><code ui:field="howToRetrieveCodeElement"/></pre>
 
             <div class="{style.whitespace}"/>
 
-            <g:Button ui:field="requestButton"
+            <g:Button ui:field="retrieveAccessTokenButton"
                       text="Request Access Token"
                       styleName="{style.request-button}"/>
 
@@ -91,8 +94,21 @@
 
             <div class="{style.whitespace}"/>
 
+            <div ui:field="extraWhiteSpace" class="{style.double-whitespace}"/>
+
+            <g:Button ui:field="refreshAccessTokenButton"
+                      text="Refresh Access Token"
+                      styleName="{style.request-button}"
+                      visible="false"/>
+
+            <h3>Once the client is created you can refresh the token</h3>
+            <pre><code ui:field="howToRefreshCodeElement"/></pre>
+
+            <div class="{style.whitespace}"/>
+
             <h3>callback.html</h3>
             <pre><code ui:field="callbackCodeElement"/></pre>
+
         </div>
     </g:HTMLPanel>
 </ui:UiBinder>

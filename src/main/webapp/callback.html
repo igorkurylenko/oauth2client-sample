@@ -2,7 +2,8 @@
 <html>
 <head>
     <script type="text/javascript">
-        window.opener.OAuth2Client.oauth2callback(location.hash);
+        var parent = window.opener || window.parent;
+        parent.OAuth2Client.oauth2callback(location.hash);
     </script>
 </head>
 <body>

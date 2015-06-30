@@ -1,7 +1,9 @@
 package com.igorkurilenko.gwt.samples.oauth2client.client.application.storeonclient;
 
+import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.SpanElement;
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -11,17 +13,24 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 
-public class StoreOnClientPageView extends ViewWithUiHandlers<StoreOnClientPageUiHandlers> implements StoreOnClientPagePresenter.MyView {
+public class StoreOnClientPageView extends ViewWithUiHandlers<StoreOnClientPageUiHandlers>
+        implements StoreOnClientPagePresenter.MyView {
     @UiField
-    Button requestButton;
+    Button retrieveAccessTokenButton;
     @UiField
-    Element howToCodeElement;
+    Element howToRetrieveCodeElement;
     @UiField
     Element callbackCodeElement;
     @UiField
     SpanElement tokenSpan;
     @UiField
     SpanElement expiresInSpan;
+    @UiField
+    Button refreshAccessTokenButton;
+    @UiField
+    DivElement extraWhiteSpace;
+    @UiField
+    Element howToRefreshCodeElement;
 
     interface Binder extends UiBinder<Widget, StoreOnClientPageView> {
     }
@@ -35,7 +44,8 @@ public class StoreOnClientPageView extends ViewWithUiHandlers<StoreOnClientPageU
     }
 
     private void initCodeElements() {
-        howToCodeElement.setInnerText(HOW_TO_CODE);
+        howToRetrieveCodeElement.setInnerText(HOW_TO_RETRIEVE_CODE);
+        howToRefreshCodeElement.setInnerText(HOW_TO_REFRESH);
         callbackCodeElement.setInnerText(CALLBACK_CODE);
     }
 
@@ -49,13 +59,24 @@ public class StoreOnClientPageView extends ViewWithUiHandlers<StoreOnClientPageU
         expiresInSpan.setInnerText(expiresIn);
     }
 
-
-    @UiHandler("requestButton")
-    public void handleClick(ClickEvent event) {
-        getUiHandlers().requestAccessToken();
+    @Override
+    public void setRefreshButtonVisible(boolean visible) {
+        extraWhiteSpace.getStyle().setDisplay(visible ? Style.Display.NONE : Style.Display.BLOCK);
+        refreshAccessTokenButton.setVisible(visible);
     }
 
-    private static final String HOW_TO_CODE = "// e.g.\n" +
+
+    @UiHandler("retrieveAccessTokenButton")
+    public void handleRetrieveClick(ClickEvent event) {
+        getUiHandlers().retrieveAccessToken();
+    }
+
+    @UiHandler("refreshAccessTokenButton")
+    public void handleRefreshClick(ClickEvent event) {
+        getUiHandlers().refreshAccessToken();
+    }
+
+    private static final String HOW_TO_RETRIEVE_CODE = "// e.g.\n" +
             "String clientId =\n" +
             "        \"392293350498-7inmq35i0n9ofuckbm1ebd8fg18c270c.apps.googleusercontent.com\";\n" +
             "String redirectUri = \"http://localhost:8888/callback.html\";\n" +
@@ -63,18 +84,16 @@ public class StoreOnClientPageView extends ViewWithUiHandlers<StoreOnClientPageU
             "Set<String> scopes = new HashSet<>();\n" +
             "scopes.add(\"https://www.googleapis.com/auth/youtube\");\n" +
             "\n" +
-            "// instantiate request\n" +
-            "AccessTokenRequest request = AccessTokenRequest.create(\n" +
-            "        authEndpoint, clientId, redirectUri, scopes);\n" +
-            "\n" +
             "// send request\n" +
-            "ImplicitGrantOAuth2Client.getInstance()\n" +
-            "        .retrieveAccessToken(request, new RetrieveAccessTokenCallback() {\n" +
-            "            public void onFailure(Throwable reason) {\n" +
+            "ImplicitGrantOAuth2Client.create(clientId, redirectUri, authEndpoint, scopes)\n" +
+            "        .retrieveAccessToken(new AccessTokenCallback() {\n" +
+            "            @Override\n" +
+            "            protected void doOnFailure(FailureReason reason) {\n" +
             "                ...\n" +
             "            }\n" +
             "\n" +
-            "            public void onSuccess(AuthorizationResponse result) {\n" +
+            "            @Override\n" +
+            "            protected void doOnSuccess(AccessToken token) {\n" +
             "                ...\n" +
             "            }\n" +
             "        });";
@@ -82,10 +101,25 @@ public class StoreOnClientPageView extends ViewWithUiHandlers<StoreOnClientPageU
             "<html>\n" +
             "<head>\n" +
             "    <script type=\"text/javascript\">\n" +
-            "        window.opener.OAuth2Client.oauth2callback(location.hash);\n" +
+            "        var parent = window.opener || window.parent;\n" +
+            "        parent.OAuth2Client.oauth2callback(location.hash);\n" +
             "    </script>\n" +
             "</head>\n" +
             "<body>\n" +
             "</body>\n" +
             "</html>";
+    private static final String HOW_TO_REFRESH = "String clientId =\n" +
+            "        \"392293350498-7inmq35i0n9ofuckbm1ebd8fg18c270c.apps.googleusercontent.com\";\n" +
+            "\n" +
+            "ImplicitGrantOAuth2Client.get(clientId).refreshAccessToken(new AccessTokenCallback() {\n" +
+            "    @Override\n" +
+            "    protected void doOnFailure(FailureReason reason) {\n" +
+            "        ...\n" +
+            "    }\n" +
+            "\n" +
+            "    @Override\n" +
+            "    protected void doOnSuccess(AccessToken token) {\n" +
+            "        ...\n" +
+            "    }\n" +
+            "});";
 }
