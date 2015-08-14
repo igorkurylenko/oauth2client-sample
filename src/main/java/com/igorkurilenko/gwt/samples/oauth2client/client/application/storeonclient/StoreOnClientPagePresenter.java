@@ -16,7 +16,6 @@ import com.igorkurilenko.gwt.samples.oauth2client.client.place.NameTokens;
 import io.itdraft.gwt.oauth2.AccessToken;
 import io.itdraft.gwt.oauth2.AccessTokenCallback;
 import io.itdraft.gwt.oauth2.FailureReason;
-import io.itdraft.gwt.oauth2.OAuth2Client;
 import io.itdraft.gwt.oauth2.implicit.ImplicitGrantOAuth2Client;
 
 import java.util.HashSet;
@@ -28,6 +27,8 @@ public class StoreOnClientPagePresenter
     private static final String EXPIRED = "expired";
     private static final String CLIENT_ID =
             "392293350498-7inmq35i0n9ofuckbm1ebd8fg18c270c.apps.googleusercontent.com";
+
+    private AccessToken token;
 
     interface MyView extends View, HasUiHandlers<StoreOnClientPageUiHandlers> {
         void setTokenText(String token);
@@ -54,27 +55,18 @@ public class StoreOnClientPagePresenter
 
         Scheduler.get().scheduleFixedPeriod(new Scheduler.RepeatingCommand() {
             public boolean execute() {
-                OAuth2Client oAuth2Client = ImplicitGrantOAuth2Client.get(CLIENT_ID);
-
-                if (oAuth2Client != null) {
-                    oAuth2Client.requestAccessToken(new AccessTokenCallback() {
-                        protected void doOnFailure(FailureReason reason) {
-                        }
-
-                        protected void doOnSuccess(AccessToken token) {
-                            renderToken(token);
-                        }
-                    });
-                }
+                renderToken();
 
                 return true;
             }
         }, 1000);
     }
 
-    private void renderToken(AccessToken token) {
-        getView().setTokenText(token.getToken());
-        updateExpiresInText(token);
+    private void renderToken() {
+        if (token != null) {
+            getView().setTokenText(token.getToken());
+            updateExpiresInText(token);
+        }
     }
 
     private void updateExpiresInText(AccessToken token) {
@@ -102,7 +94,7 @@ public class StoreOnClientPagePresenter
 
                     @Override
                     protected void doOnSuccess(AccessToken token) {
-                        renderToken(token);
+                        StoreOnClientPagePresenter.this.token = token;
                         getView().setRefreshButtonVisible(true);
                     }
                 });
@@ -121,7 +113,7 @@ public class StoreOnClientPagePresenter
 
             @Override
             protected void doOnSuccess(AccessToken token) {
-                renderToken(token);
+                StoreOnClientPagePresenter.this.token = token;
             }
         });
     }
